@@ -1,62 +1,65 @@
-Set-StrictMode -Version Latest
-$ErrorActionPreference = "Stop"
+# ================================
+# Hexo 本地构建脚本（Windows 通用）
+# 兼容 PowerShell 5.1 / 7+
+# ================================
 
-Write-Host "====================================="
-Write-Host " Hexo 本地构建开始"
-Write-Host "====================================="
+Write-Host "🚀 开始 Hexo 本地构建..." -ForegroundColor Cyan
 
-# env 文件
-$EnvFile = ".\deploy.env"
+$EnvFile = "deploy.env"
 
 if (!(Test-Path $EnvFile)) {
-  throw "❌ 未找到 $EnvFile，请先创建并填写密码"
+    Write-Error "❌ 未找到 $EnvFile"
+    exit 1
 }
 
-Write-Host "📦 读取环境变量 ($EnvFile)..."
+Write-Host "📄 读取环境变量: $EnvFile"
 
-# 读取 deploy.env
 Get-Content $EnvFile | ForEach-Object {
-  $line = $_.Trim()
-  if ($line -eq "" -or $line.StartsWith("#")) { return }
 
-  if ($line -match '^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*"(.*)"\s*$') {
-    [Environment]::SetEnvironmentVariable($matches[1], $matches[2], "Process")
-    return
-  }
+    $line = $_.Trim()
 
-  if ($line -match '^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$') {
-    [Environment]::SetEnvironmentVariable($matches[1], $matches[2].Trim('"'), "Process")
-    return
-  }
+    if ($line -eq "" -or $line.StartsWith("#")) {
+        return
+    }
+
+    # 只处理 KEY=VALUE
+    if ($line.Contains("=")) {
+        $parts = $line.Split("=", 2)
+
+        $key = $parts[0].Trim()
+        $value = $parts[1].Trim()
+
+        # 去掉首尾引号（安全写法）
+        if ($value.StartsWith('"') -and $value.EndsWith('"')) {
+            $value = $value.Substring(1, $value.Length - 2)
+        }
+
+        [System.Environment]::SetEnvironmentVariable(
+            $key,
+            $value,
+            "Process"
+        )
+
+        Write-Host "  ✔ $key 已注入"
+    }
 }
 
-if (-not $env:HEXO_LOCK_PASSWORD) { throw "❌ HEXO_LOCK_PASSWORD 未设置" }
-if (-not $env:HEXO_GUESS_PASSWORD) { throw "❌ HEXO_GUESS_PASSWORD 未设置" }
-
-Write-Host "🔐 加密密码已加载"
-
-# 生成临时加密配置
-$tmp = "_config.encrypt.yml"
-
-Write-Host "📝 生成临时加密配置文件 $tmp"
-
-@"
+# 生成 encrypt 配置
+$EncryptConfig = @"
 encrypt:
   tags:
-    - { name: 上锁的内容, password: "$($env:HEXO_LOCK_PASSWORD)" }
-    - { name: guess, password: "$($env:HEXO_GUESS_PASSWORD)" }
-"@ | Set-Content -Encoding UTF8 $tmp
+    - { name: 上锁的内容, password: "$env:HEXO_LOCK_PASSWORD" }
+    - { name: guess, password: "$env:HEXO_GUESS_PASSWORD" }
+"@
 
-# 构建阶段
-Write-Host "🧹 清理 Hexo 缓存 (hexo clean)..."
+$EncryptConfig | Out-File -Encoding UTF8 _config.encrypt.yml
+
+Write-Host "🔐 已生成 _config.encrypt.yml"
+
+Write-Host "🧹 执行 hexo clean"
 npx hexo clean
 
-Write-Host "🏗️  正在生成静态页面 (hexo g)..."
-npx hexo g --config _config.yml,$tmp
+Write-Host "🏗️ 执行 hexo generate"
+npx hexo g --config _config.yml,_config.encrypt.yml
 
-Write-Host "====================================="
-Write-Host "✅ 构建完成！"
-Write-Host "📂 输出目录：.\\public\\"
-Write-Host "🔍 预览命令："
-Write-Host "   npx hexo s --config _config.yml,$tmp"
-Write-Host "====================================="
+Write-Host "✅ 构建完成！public/ 已更新" -ForegroundColor Green

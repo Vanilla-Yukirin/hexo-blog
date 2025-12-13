@@ -141,6 +141,8 @@ vite.config.ts.timestamp-*
 # public
 public/
 
+source/lib/pdf/
+
 # secret
 deploy.env
 _config.encrypt.yml

@@ -1,0 +1,190 @@
+---
+title: 常用链接工具
+mathjax: true
+date: 2025-05-07 01:48:02
+type: "tools"
+---
+
+
+<div id="tool-links-container">
+</div>
+
+<style>
+#tool-links-container {
+    max-width: 800px; /* 您可以根据博客的宽度调整 */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.tool-link-item {
+    margin-bottom: 1rem; /* 每个链接条目下方的间距 */
+    padding: 0.75rem 1rem; /* 条目内部的填充 */
+    border: 1px solid #e0e0e0; /* 条目边框 */
+    border-radius: 6px; /* 条目圆角 */
+    background-color: #f9f9f9; /* 条目背景色 (可选) */
+    text-align: left; /* 确保整体内容靠左 */
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.tool-link-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* 悬停效果 */
+    background-color: #f0f0f0; /* 悬停时轻微改变背景色 */
+}
+
+.tool-link-details {
+    /* 这个容器现在将包含名称和简介 */
+    
+    /* 目前没有特定样式，但可用于未来调整。*/
+    /* 为了消除编辑器的空规则提示，可以添加一个通用属性: */
+    position: relative; /* 例如，这是一个常用的无害属性，方便未来内部绝对定位 */
+}
+
+.tool-link-name { /* 用于显示 'name' 字段的链接样式 */
+    display: block;
+    font-size: 1.2rem; /* 网站名称可以稍大一些 */
+    font-weight: bold;
+    color: #2c3e50; /* 深一点的颜色 */
+    text-decoration: none;
+    line-height: 1.4;
+    margin-bottom: 0.3rem; /* 名称和简介之间的间距 */
+}
+
+.tool-link-name:hover {
+    color: #007bff; /* 鼠标悬停时名称文字颜色 */
+    text-decoration: underline;
+}
+
+.tool-link-intro { /* 用于显示新的 'description' (简介) 字段的样式 */
+    font-size: 0.95rem; /* 简介文字大小 */
+    color: #555;    /* 简介文字颜色 */
+    line-height: 1.5;
+    word-wrap: break-word; /* 确保长单词能换行 */
+
+    margin-bottom: 5px; /*默认p的底部会继承20px，太多了*/
+}
+
+/* 旧的 .tool-link-url 样式仍然保留，以备将来可能显示URL本身 */
+.tool-link-url {
+    font-size: 0.85rem;
+    color: #777;
+    word-break: break-all;
+    display: block;
+    margin-top: 0.25rem;
+}
+
+</style>
+
+<script>
+
+// 修改脚本部分，添加PJAX支持
+function initToolLinks() {
+    const toolLinksData = [
+        {
+            url: "https://vanilla-chan.cn/hidden-word/",
+            name: "hidden-word", // 新增 name 字段
+            description: "隐藏文字工具 - 将秘密信息隐藏在普通文本中"
+        },
+        {
+            url: "http://121.43.33.13:5244/",
+            name: "Vanilla's Alist",
+            description: "登录到 Vanilla 的 AList"
+        },
+        {
+            url: "https://csacademy.com/app/graph_editor/g",
+            name: "GraphEditor",
+            description: "在线绘“图”工具"
+        },
+        {
+            url: "https://csacademy.com/app/geometry_widget",
+            name: "Geometry Widget",
+            description: "在线计算几何作图"
+        },
+        {
+            url: "https://oeis.org/",
+            name: "OEIS",
+            description: "The On-Line Encyclopedia of Integer Sequences (OEIS)"
+        },
+        {
+            url: "https://developer.mozilla.org",
+            name: "MDN Web Docs",
+            description: "Mozilla 提供的开放网络技术文档资源，包含 HTML, CSS, JavaScript 等。"
+        },
+        {
+            url: "https://caniuse.com",
+            name: "Can I use...",
+            description: "提供主流桌面和移动浏览器对前端技术支持情况的兼容性查询表。"
+        },
+        {
+            url: "https://tinypng.com",
+            name: "TinyPNG",
+            description: "智能PNG和JPEG图片压缩工具，显著减小图片文件大小而不牺牲太多质量。"
+        },
+        {
+            url: "https://www.iconfont.cn/",
+            name: "iconfont-阿里巴巴矢量图标库",
+            description: "提供丰富多样的矢量图标资源，支持多种格式下载和在线项目管理。"
+        },
+        {
+            url: "https://www.google.com",
+            name: "Google 搜索",
+            description: "全球领先的搜索引擎，提供广泛的信息检索服务。"
+        }
+        // 在这里添加更多链接...
+        // 格式: { url: "链接地址", name: "网站名称", description: "详细简介" },
+    ];
+    const container = document.getElementById("tool-links-container");
+    if (!container) return; // 防止在找不到容器时出错
+    
+    // 清空容器，避免重复添加
+    container.innerHTML = '';
+    toolLinksData.forEach(link => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'tool-link-item';
+        itemDiv.innerHTML = `
+            <div class="tool-link-details">
+                <a href="${link.url}" class="tool-link-name" target="_blank" rel="noopener noreferrer">
+                    ${link.name}
+                </a>
+                <p class="tool-link-intro">${link.description}</p>
+            </div>
+        `;
+        container.appendChild(itemDiv);
+    });
+}
+
+
+
+// 常规页面加载
+document.addEventListener("DOMContentLoaded", initToolLinks);
+// 支持PJAX重新加载
+document.addEventListener("pjax:success", initToolLinks);
+// NexT主题特定事件支持
+if (typeof window.NexT !== 'undefined') {
+    window.addEventListener('load', initToolLinks);
+}
+
+
+
+
+// 使用MutationObserver监听DOM变化，确保动态加载的内容也能正确初始化
+// (function() {
+//     const observer = new MutationObserver(function(mutations) {
+//         if (document.getElementById("tool-links-container")) {
+//             initToolLinks();
+//             // 不要立即断开观察者，因为PJAX可能会多次替换DOM
+//             // 只在页面离开时自动断开
+//         }
+//     });
+    
+//     observer.observe(document.body, {
+//         childList: true,
+//         subtree: true
+//     });
+//     // 页面卸载时断开观察者，避免内存泄漏
+//     window.addEventListener('beforeunload', function() {
+//         observer.disconnect();
+//     });
+// })();
+
+
+</script>

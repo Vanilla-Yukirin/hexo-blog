@@ -1,0 +1,206 @@
+---
+title: Friends
+mathjax: true
+date: 2024-06-08 17:03:25
+type: "links"
+---
+
+<div class="post-body">
+   <div id="links">
+      <style>
+         .links-content {
+            margin-top: 1rem;
+         }
+
+         .link-navigation::after {
+            content: " ";
+            display: block;
+            clear: both;
+         }
+
+         .card {
+            width: 45%;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition-duration: 0.15s;
+            margin-bottom: 1rem;
+            display: flex;
+         }
+
+         .card:nth-child(odd) {
+            float: left;
+         }
+
+         .card:nth-child(even) {
+            float: right;
+         }
+
+         .card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
+         }
+
+         .card a {
+            border: none;
+         }
+
+         .card .ava {
+            width: 3rem !important;
+            height: 3rem !important;
+            margin: 0 !important;
+            margin-right: 1em !important;
+            border-radius: 4px;
+         }
+
+         .card .card-header {
+            font-style: italic;
+            overflow: hidden;
+            width: 100%;
+         }
+
+         .card .card-header a {
+            font-style: normal;
+            color: #3dcbe4;
+            font-weight: bold;
+            text-decoration: none;
+         }
+
+         .card .card-header a:hover {
+            color: #d480aa;
+            text-decoration: none;
+         }
+
+         .card .card-header .info {
+            font-style: normal;
+            color: #a3a3a3;
+            font-size: 14px;
+            min-width: 0;
+            overflow: hidden;
+            white-space: nowrap;
+         }
+      </style>
+
+      <div class="links-content">
+      <div class="link-navigation" id="friend-list">
+        <!-- Cards will be inserted here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    let friends = [
+      {
+        name: "Vanilla_chan",
+        link: "https://www.cnblogs.com/Vanilla-chan",
+        avatar: "https://vanilla-picture-with-picgo.oss-cn-shenzhen.aliyuncs.com/common/Noir-transparent-256.png",
+        info: "永远可爱 永远善良"
+      },
+      {
+        name: "qjy",
+        link: "https://www.cnblogs.com/qiuheqiuji",
+        avatar: "https://vanilla-picture-with-picgo.oss-cn-shenzhen.aliyuncs.com/img-from-picgo/20240619-113919.png",
+        info: "收废品的老头子"
+      },
+      {
+        name: "Elaina_0",
+        link: "https://www.cnblogs.com/Elaina-0",
+        avatar: "https://vanilla-picture-with-picgo.oss-cn-shenzhen.aliyuncs.com/img-from-picgo/20240619-113757.png",
+        info: "「今朝依旧,今后亦然。」"
+      },
+      {
+        name: "qyy",
+        link: "https://www.cnblogs.com/9102qyy",
+        avatar: "https://vanilla-picture-with-picgo.oss-cn-shenzhen.aliyuncs.com/img-from-picgo/20240619-115010.png",
+        info: "I am a good person."
+      },
+      {
+        name: "Tommy0103",
+        link: "https://www.cnblogs.com/tommymio",
+        avatar: "https://vanilla-picture-with-picgo.oss-cn-shenzhen.aliyuncs.com/img-from-picgo/20240619-124621.jpeg",
+        info: "Informatik verbindet dich und mich."
+      },
+      {
+        name: "Menci",
+        link: "https://men.ci/",
+        avatar: "https://vanilla-picture-with-picgo.oss-cn-shenzhen.aliyuncs.com/img-from-picgo/20240619-131832.png",
+        info: "OIer / Software Engineer"
+      },
+      {
+        name: "undefined",
+        link: "https://undefined.moe/",
+        avatar: "https://vanilla-picture-with-picgo.oss-cn-shenzhen.aliyuncs.com/img-from-picgo/20240619-161908.png",
+        info: "OIer / Hydro-dev"
+      },
+      {
+        name: "icy",
+        link: "https://icys.top/",
+        avatar: "https://avatars.githubusercontent.com/u/29377957",
+        info: "If not me, who? If not now, when?"
+      },
+      {
+        name: "Heshi",
+        link: "https://wwheshi.github.io/",
+        avatar: "https://vanilla-picture-with-picgo.oss-cn-shenzhen.aliyuncs.com/img-from-picgo/20241018-215905.png",
+        info: "一名 ACMer"
+      },
+      {
+        name: "有栖みかArisuMika",
+        link: "https://blog.arisumika.top/",
+        avatar: "https://vanilla-picture-with-picgo.oss-cn-shenzhen.aliyuncs.com/img-from-OSS-uploader/20250424-102623-10001.jpg",
+        info: "愿你终将与最重要的人重逢"
+      },
+      {
+        name: "FoskyM",
+        link: "https://space.fosky.top/",
+        avatar: "https://vanilla-picture-with-picgo.oss-cn-shenzhen.aliyuncs.com/img-from-OSS-uploader/20241122-172848-30494.png",
+        info: "是侬勿望"
+      },
+      {
+        name: "",
+        link: "",
+        avatar: "",
+        info: ""
+      }
+    ];
+
+    // Remove empty template elements
+    friends = friends.filter(friend => friend.name !== "");
+
+    // Check the number of elements
+    if (friends.length % 2 !== 0) {
+      // Remove the first element if the count is odd
+      friends.shift();
+    }
+
+    // Randomize the order of friends
+    friends.sort(() => Math.random() - 0.5);
+
+    const friendList = document.getElementById("friend-list");
+
+    friends.forEach(friend => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img class="ava" src="${friend.avatar}" />
+        <div class="card-header">
+          <div><a href="${friend.link}">${friend.name}</a></div>
+          <div class="info">${friend.info}</div>
+        </div>
+      `;
+      friendList.appendChild(card);
+    });
+  });
+</script>
+
+
+
+
+$$
+\begin{align}
+\text{Your name} + \text{Link} + \text{Image url} + \text{Motto} = \text{A new friend}!\nonumber
+\end{align}
+$$

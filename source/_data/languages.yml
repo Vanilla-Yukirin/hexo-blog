@@ -1,0 +1,13 @@
+# language
+zh-CN:
+  menu:
+    main: 主页
+    links: 友链
+    tools: 工具
+    home: 首页
+en:
+  menu:
+    main: Main
+    links: Friends
+    tools: Tools
+    home: Home

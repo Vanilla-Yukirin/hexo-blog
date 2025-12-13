@@ -141,5 +141,7 @@ vite.config.ts.timestamp-*
 # public
 public/
 
-# Secret
+# secret
 deploy.env
+_config.encrypt.yml
+db.json

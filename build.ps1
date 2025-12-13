@@ -3,17 +3,16 @@
 # 兼容 PowerShell 5.1 / 7+
 # ================================
 
-Write-Host "🚀 开始 Hexo 本地构建..." -ForegroundColor Cyan
+Write-Host "[INFO] Start Hexo build" -ForegroundColor Cyan
 
 $EnvFile = "deploy.env"
 
 if (!(Test-Path $EnvFile)) {
-    Write-Error "❌ 未找到 $EnvFile"
+    Write-Error "[ERROR] $EnvFile not found!"
     exit 1
 }
 
-Write-Host "📄 读取环境变量: $EnvFile"
-
+Write-Host "[INFO] Reading environment variables from: $EnvFile"
 Get-Content $EnvFile | ForEach-Object {
 
     $line = $_.Trim()
@@ -40,7 +39,7 @@ Get-Content $EnvFile | ForEach-Object {
             "Process"
         )
 
-        Write-Host "  ✔ $key 已注入"
+        Write-Host "  [INFO] $key injected"
     }
 }
 
@@ -54,12 +53,12 @@ encrypt:
 
 $EncryptConfig | Out-File -Encoding UTF8 _config.encrypt.yml
 
-Write-Host "🔐 已生成 _config.encrypt.yml"
+Write-Host "[INFO] _config.encrypt.yml generated"
 
-Write-Host "🧹 执行 hexo clean"
+Write-Host "[INFO] Running hexo clean"
 npx hexo clean
 
-Write-Host "🏗️ 执行 hexo generate"
+Write-Host "[INFO] Running hexo generate"
 npx hexo g --config _config.yml,_config.encrypt.yml
 
-Write-Host "✅ 构建完成！public/ 已更新" -ForegroundColor Green
+Write-Host "[INFO] Build completed! public/ updated" -ForegroundColor Green

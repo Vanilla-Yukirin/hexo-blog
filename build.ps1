@@ -61,4 +61,4 @@ Write-Host "[INFO] Running hexo generate (merge main+encrypt config)"
 npx --yes hexo g --config "_config.main.yml,_config.encrypt.yml"
 if ($LASTEXITCODE -ne 0) { Write-Error "[ERROR] hexo generate failed"; exit $LASTEXITCODE }
 
-Write-Host "[DONE] public/ updated" -ForegroundColor Green
+Write-Host "[DONE] public/ updated ✅" -ForegroundColor Green

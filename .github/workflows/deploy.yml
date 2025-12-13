@@ -1,0 +1,57 @@
+name: Deploy Hexo to Nginx
+
+on:
+  push:
+    branches: ["main"]
+
+concurrency:
+  group: hexo-deploy
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies (locked)
+        run: npm ci
+
+      - name: Generate encrypt config from secrets
+        run: |
+          cat > _config.encrypt.yml <<EOF
+          encrypt:
+            tags:
+              - { name: 上锁的内容, password: "${{ secrets.HEXO_LOCK_PASSWORD }}" }
+              - { name: guess, password: "${{ secrets.HEXO_GUESS_PASSWORD }}" }
+          EOF
+
+      - name: Build (hexo clean + generate)
+        run: |
+          npx hexo clean
+          npx hexo g --config _config.yml,_config.encrypt.yml
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+          # 固定端口 22，写入 known_hosts，避免首次连接交互
+          ssh-keyscan -p 22 "${{ secrets.SERVER_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy to server (/var/www/blog)
+        run: |
+          # 目标路径写死：/var/www/blog
+          rsync -az --delete \
+            -e "ssh -p 22" \
+            public/ \
+            "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/blog/"

@@ -1,64 +1,64 @@
 # ================================
-# Hexo 本地构建脚本（Windows 通用）
-# 兼容 PowerShell 5.1 / 7+
+# Hexo 本地构建脚本（Windows）
+# 读取 deploy.env -> 生成 _config.encrypt.yml -> hexo clean + g
 # ================================
 
 Write-Host "[INFO] Start Hexo build" -ForegroundColor Cyan
 
 $EnvFile = "deploy.env"
-
 if (!(Test-Path $EnvFile)) {
-    Write-Error "[ERROR] $EnvFile not found!"
-    exit 1
+  Write-Error "[ERROR] deploy.env not found!"
+  exit 1
 }
 
-Write-Host "[INFO] Reading environment variables from: $EnvFile"
+Write-Host "[INFO] Reading env from deploy.env"
 Get-Content $EnvFile | ForEach-Object {
+  $line = $_.Trim()
+  if ($line -eq "" -or $line.StartsWith("#")) { return }
 
-    $line = $_.Trim()
+  if ($line.Contains("=")) {
+    $parts = $line.Split("=", 2)
+    $k = $parts[0].Trim()
+    $v = $parts[1].Trim()
 
-    if ($line -eq "" -or $line.StartsWith("#")) {
-        return
+    # 去掉首尾引号（只处理一层）
+    if (($v.StartsWith('"') -and $v.EndsWith('"')) -or ($v.StartsWith("'") -and $v.EndsWith("'"))) {
+      $v = $v.Substring(1, $v.Length - 2)
     }
 
-    # 只处理 KEY=VALUE
-    if ($line.Contains("=")) {
-        $parts = $line.Split("=", 2)
-
-        $key = $parts[0].Trim()
-        $value = $parts[1].Trim()
-
-        # 去掉首尾引号（安全写法）
-        if ($value.StartsWith('"') -and $value.EndsWith('"')) {
-            $value = $value.Substring(1, $value.Length - 2)
-        }
-
-        [System.Environment]::SetEnvironmentVariable(
-            $key,
-            $value,
-            "Process"
-        )
-
-        Write-Host "  [INFO] $key injected"
-    }
+    [System.Environment]::SetEnvironmentVariable($k, $v, "Process")
+    Write-Host "  [OK] $k injected"
+  }
 }
 
-# 生成 encrypt 配置
+if ([string]::IsNullOrWhiteSpace($env:HEXO_LOCK_PASSWORD)) { Write-Error "[ERROR] HEXO_LOCK_PASSWORD empty"; exit 1 }
+if ([string]::IsNullOrWhiteSpace($env:HEXO_GUESS_PASSWORD)) { Write-Error "[ERROR] HEXO_GUESS_PASSWORD empty"; exit 1 }
+
+Write-Host "[INFO] Generating _config.encrypt.yml"
 $EncryptConfig = @"
 encrypt:
+  abstract: "Here's something encrypted, password is required to continue reading."
+  message: "Password is required to display this essay."
   tags:
-    - { name: 上锁的内容, password: "$env:HEXO_LOCK_PASSWORD" }
-    - { name: guess, password: "$env:HEXO_GUESS_PASSWORD" }
+    - name: "上锁的内容"
+      password: "$($env:HEXO_LOCK_PASSWORD)"
+    - name: "guess"
+      password: "$($env:HEXO_GUESS_PASSWORD)"
+  theme: xray
+  wrong_pass_message: "诶，密码不对！是输错了嘛？"
+  wrong_hash_message: "抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容."
 "@
 
-$EncryptConfig | Out-File -Encoding UTF8 _config.encrypt.yml
-
-Write-Host "[INFO] _config.encrypt.yml generated"
+# 写 UTF-8 BOM，避免 Windows PowerShell 5.1 / 乱码 / YAML 中文解析坑
+$utf8bom = New-Object System.Text.UTF8Encoding($true)
+[System.IO.File]::WriteAllText("_config.encrypt.yml", $EncryptConfig, $utf8bom)
 
 Write-Host "[INFO] Running hexo clean"
-npx hexo clean
+npx --yes hexo clean
+if ($LASTEXITCODE -ne 0) { Write-Error "[ERROR] hexo clean failed"; exit $LASTEXITCODE }
 
-Write-Host "[INFO] Running hexo generate"
-npx hexo g --config _config.yml,_config.encrypt.yml
+Write-Host "[INFO] Running hexo generate (merge main+encrypt config)"
+npx --yes hexo g --config "_config.main.yml,_config.encrypt.yml"
+if ($LASTEXITCODE -ne 0) { Write-Error "[ERROR] hexo generate failed"; exit $LASTEXITCODE }
 
-Write-Host "[INFO] Build completed! public/ updated" -ForegroundColor Green
+Write-Host "[DONE] public/ updated ✅" -ForegroundColor Green

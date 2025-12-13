@@ -136,22 +136,3 @@ symbols_count_time:
   exclude_codeblock: false
   wpm: 275
   suffix: "mins."
-
-
-
-# 安全
-# hexo-blog-encrypt
-encrypt: 
-  abstract: Here's something encrypted, password is required to continue reading.
-  message: Password is required to display this essay.
-  tags:
-  - {name: 上锁的内容, password: 这里准备放密码}
-  - {name: guess, password: 这里准备放密码}
-  #密码主题 https://github.com/D0n9X1n/hexo-blog-encrypt#encrypt-theme
-  theme: xray
-  wrong_pass_message: 诶，密码不对！是输错了嘛？
-  wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.
-
-
-
-

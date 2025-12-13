@@ -36,15 +36,17 @@ nano deploy.env
 
 ## 快速命令
 
+编译时必须指定配置文件（encrypt 由脚本自动生成）：
+
 ```bash
-# 清空缓存重来
+# 清空缓存
 npx hexo clean
 
-# 生成
-npx hexo g
+# 生成（需要合并加密配置）
+npx hexo g --config "_config.main.yml,_config.encrypt.yml"
 
-# 本地看一遍
-npx hexo server
+# 本地看（也需要指定配置）
+npx hexo s --config "_config.main.yml,_config.encrypt.yml"
 ```
 
 ---

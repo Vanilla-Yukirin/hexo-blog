@@ -30,19 +30,17 @@ jobs:
       - name: Install dependencies (locked)
         run: npm ci
 
-      - name: Generate encrypt config from secrets
+      - name: Generate deploy.env from secrets
         run: |
-          cat > _config.encrypt.yml <<EOF
-          encrypt:
-            tags:
-              - { name: 上锁的内容, password: "${{ secrets.HEXO_LOCK_PASSWORD }}" }
-              - { name: guess, password: "${{ secrets.HEXO_GUESS_PASSWORD }}" }
+          cat > deploy.env <<EOF
+          HEXO_LOCK_PASSWORD="${{ secrets.HEXO_LOCK_PASSWORD }}"
+          HEXO_GUESS_PASSWORD="${{ secrets.HEXO_GUESS_PASSWORD }}"
           EOF
 
-      - name: Build (hexo clean + generate)
+      - name: Build with build.sh
         run: |
-          npx hexo clean
-          npx hexo g --config _config.yml,_config.encrypt.yml
+          chmod +x build.sh
+          ./build.sh
 
       - name: Setup SSH
         run: |

@@ -1,7 +1,8 @@
 ---
 title: WSL2如何使用中文字体
 tags:
-  - 2025ACM
+  - WSL
+  - conda
 mathjax: false
 date: 2025-12-16 16:44:52
 categories:

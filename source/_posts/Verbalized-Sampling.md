@@ -172,6 +172,8 @@ User prompt: 写一个关于熊的短故事。
 
 ## 动手测试
 
+我写了个 demo 网站：[Verbalized Sampling Demo](https://yukirin.me/demo/verbalized-sampling)
+
 使用 `deepseek-V3.2(no thinking)` 和 `Qwen3-30B-A3B-Instruct-2507` 作为 llm 模型，使用 `Qwen3-Embedding-0.6B` 作为向量计算模型。计算 `标准方法类内平均距离` 和 `VS方法类内平均距离`，以及提升幅度。
 
 首先，给予提示词 `构造一个问题`，在标准方法和VS方法的系统提示词下，各自生成 5 个问题。这样加起来共计 11 个问题。对于这 11 个问题，使用上述两个模型，在两种提示词下，设置每次生成 5 个 response，并计算这 5 个 resonese 的类内距离。

@@ -225,5 +225,7 @@ User prompt: 写一个关于熊的短故事。
 
 [[2510.01171] Verbalized Sampling: How to Mitigate Mode Collapse and Unlock LLM Diversity](https://arxiv.org/abs/2510.01171)
 
+[为什么不同大模型在很多问题的回答偏向同质化？语言化采样：如何缓解模式崩溃并释放大模型多样性](https://www.bilibili.com/video/BV1jXSeBUEKA/?share_source=copy_web&vd_source=35bd7933e51379473c3a49c28092b2b0)
+
 [一句 Prompt，让大模型不再千篇一律：Verbalized Sampling 全解析 哔哩哔哩](https://www.bilibili.com/video/BV1yhUGB8E6T/)
 

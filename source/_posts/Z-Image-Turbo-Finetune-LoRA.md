@@ -7,7 +7,7 @@ tags:
 mathjax: false
 date: 2026-02-14 23:53:25
 categories:
-description:使用ai-toolkit微调Z-Image-Turbo模型的过程记录。
+description: 使用ai-toolkit微调Z-Image-Turbo模型的过程记录。
 photo:
 ---
 

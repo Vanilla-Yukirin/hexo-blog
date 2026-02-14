@@ -12,7 +12,6 @@ photo:
 ---
 
 
-
 ## 训练工具准备
 
 ### 安装环境
@@ -1209,11 +1208,16 @@ python previewer.py --input "D:\dataset\tagged"
 
 然后就可以点击右上角“Create Job”开始训练啦！
 
-我训练了人脸LoRA，在750step时初感有效，1000step就能看出五官相似，1250step学习到了角色固定的发型。
+我训练了人脸LoRA：
 
-Samples页可以看到每次Sample的图片。Loss Graph可参考
+- 在750step时初感有效
+- 1000step就能看出五官相似
+- 1250step学习到了角色固定的发型
+- 1750step时有张sample给角色带上了常戴的眼镜（数据集里面有一部分是戴眼镜的）
 
-## Referance
+Samples页可以看到每次Sample的图片。Loss Graph页可观察曲线，但通常下降不会太明显。
+
+## Reference
 
 [Z-image-turbo初级炼丹记录：针对“蒸馏模型”的LoRA训练 - 知乎](https://zhuanlan.zhihu.com/p/1991604982705832652)
 

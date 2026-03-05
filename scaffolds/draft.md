@@ -1,7 +1,7 @@
 ---
 title: {{ title }}
 date: {{ date }}
-updated:
+updated: {{ date }}
 permalink:
 tags:
 mathjax: false
@@ -9,3 +9,6 @@ categories:
 description:
 photo:
 ---
+
+
+<!--more-->

@@ -4,6 +4,7 @@ mathjax: true
 date: 2025-03-01 17:33:53
 tags:
 - GPU
+- eGPU
 categories:
 description: 省流：内屏损耗8%，外屏损耗2%~5%。
 photos: https://vanilla-picture-with-picgo.oss-cn-shenzhen.aliyuncs.com/img-from-OSS-uploader/20250317-215512-10001.png

@@ -4,6 +4,7 @@ mathjax: true
 date: 2025-04-24 10:33:05
 tags:
 - GPU
+- eGPU
 categories:
 description: 省流：雷电损耗超级大。
 photos: https://vanilla-picture-with-picgo.oss-cn-shenzhen.aliyuncs.com/img-from-OSS-uploader/20250421-112859-10001.png

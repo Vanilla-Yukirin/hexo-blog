@@ -1,8 +1,8 @@
 # Hexo Blog - 个人博客
 
-个人技术博客，从博客园迁过来的，用 Hexo 生成静态网站。2025年初开始迁移，12月13号起用 GitHub Actions 自动构建和部署。
+个人技术博客，从博客园迁移而来，用 Hexo 生成静态网站。2025年初开始迁移，12月13号起用 GitHub Actions 自动构建和部署。
 
-在线地址：https://vanilla-chan.cn/blog/
+在线链接：https://vanilla-chan.cn/blog/，欢迎交换友链。
 
 ## 本地构建（Win11）
 
@@ -48,6 +48,46 @@ npx hexo g --config "_config.main.yml,_config.encrypt.yml"
 # 本地看（也需要指定配置）
 npx hexo s --config "_config.main.yml,_config.encrypt.yml"
 ```
+
+## 日常使用（写作流程）
+
+### 创建草稿
+
+```powershell
+hexo new draft "这里是文章标题（可中文）" --slug "english-slug"
+```
+
+- `title` 可以中文（用于页面显示）
+- `--slug` 建议英文短横线（用于文件名和链接）
+- 草稿位置：`source/_drafts/`
+
+### 本地预览（包含draft）
+
+```powershell
+npx --yes hexo s --draft --config "_config.main.yml,_config.encrypt.yml"
+```
+
+- 访问：http://localhost:4000/blog/
+
+### 发布草稿到post
+
+```powershell
+hexo publish "<slug>"
+```
+
+- 会把文章从 `source/_drafts/` 移动到 `source/_posts/`
+
+### 本地构建（workflow发布前检查）
+
+```powershell
+.\build.ps1
+.\service.ps1
+```
+
+- `build.ps1` 脚本会读取 `deploy.env`，生成 `_config.encrypt.yml`，然后执行 clean + generate
+- `service.ps1` 会启动一个本地服务器，访问 http://localhost:4000/blog/ 来预览，包含加密效果，不包含草稿
+
+
 
 ---
 

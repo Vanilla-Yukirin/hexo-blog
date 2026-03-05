@@ -39,6 +39,9 @@ nano deploy.env
 > 说明：`encrypt` 参数会读取 `deploy.env` 并生成 `_config.encrypt.yml`。
 
 ```powershell
+# 列出所有文章
+hexo list post
+
 # 新建草稿（标题可中文，slug 建议英文）
 hexo new draft "这里是文章标题（可中文）" --slug "english-slug"
 

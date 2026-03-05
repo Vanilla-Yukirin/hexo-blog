@@ -136,3 +136,16 @@ symbols_count_time:
   exclude_codeblock: false
   wpm: 275
   suffix: "mins."
+
+
+#订阅RSS
+# refer to https://maseng.cn/2025/12/31/hexo-rss-config-guide/index.html
+feed:
+  type: atom      #[rss2, atom]
+  path: atom.xml  #[rss.xml, atom.xml]
+  limit: 20
+  content: true
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date
+  autodiscovery: true

@@ -4,7 +4,7 @@
 
 在线链接：https://vanilla-chan.cn/blog/，欢迎交换友链。
 
-## 本地构建（Win11）
+## 本地构建（Windows）
 
 需要的话就本地跑一遍。正常流程：
 
@@ -15,10 +15,10 @@ Copy-Item deploy.env.example deploy.env
 # 修改里面的密码
 notepad deploy.env
 # 运行构建
-.\build.ps1
+.\build.ps1 encrypt
 ```
 
-Linux/macOS 下：
+Linux：
 ```bash
 npm ci
 cp deploy.env.example deploy.env
@@ -34,19 +34,25 @@ nano deploy.env
 
 **不要乱升级依赖**：这就是个静态网页生成器，生成出来的都是 HTML/CSS/JS，跑在浏览器里没什么安全风险。npm 包里有漏洞对这玩意没影响。现在这套环能跑，升级了反而可能出问题，所以就用 `npm ci` 严格按 lock 文件安装，别动 node_modules。
 
-## 快速命令
+## 快速命令（Windows）
 
-编译时必须指定配置文件（encrypt 由脚本自动生成）：
+> 说明：`encrypt` 参数会读取 `deploy.env` 并生成 `_config.encrypt.yml`。
 
-```bash
-# 清空缓存
-npx hexo clean
+```powershell
+# 新建草稿（标题可中文，slug 建议英文）
+hexo new draft "这里是文章标题（可中文）" --slug "english-slug"
 
-# 生成（需要合并加密配置）
-npx hexo g --config "_config.main.yml,_config.encrypt.yml"
+# 查看草稿效果（含加密）
+.\service.ps1 draft encrypt
 
-# 本地看（也需要指定配置）
-npx hexo s --config "_config.main.yml,_config.encrypt.yml"
+# 查看正式效果（不含草稿，含加密）
+.\service.ps1 encrypt
+
+# 发布草稿到 post
+hexo publish "english-slug"
+
+# 发布前完整本地检查（clean + generate）
+.\build.ps1 encrypt
 ```
 
 ## 日常使用（写作流程）
@@ -61,18 +67,32 @@ hexo new draft "这里是文章标题（可中文）" --slug "english-slug"
 - `--slug` 建议英文短横线（用于文件名和链接）
 - 草稿位置：`source/_drafts/`
 
-### 本地预览（包含draft）
+### 本地预览（可选 draft/encrypt）
+
+推荐用一键脚本：
 
 ```powershell
-npx --yes hexo s --draft --config "_config.main.yml,_config.encrypt.yml"
+.\service.ps1                # 默认：不含draft，不启用encrypt
+.\service.ps1 draft          # 包含草稿
+.\service.ps1 encrypt        # 启用加密配置
+.\service.ps1 draft encrypt  # 草稿 + 加密
+```
+
+Linux：
+
+```bash
+./service.sh
+./service.sh draft
+./service.sh encrypt
+./service.sh draft encrypt
 ```
 
 - 访问：http://localhost:4000/blog/
 
-### 发布草稿到post
+### 发布草稿到 post
 
 ```powershell
-hexo publish "<slug>"
+hexo publish "english-slug"
 ```
 
 - 会把文章从 `source/_drafts/` 移动到 `source/_posts/`
@@ -81,11 +101,20 @@ hexo publish "<slug>"
 
 ```powershell
 .\build.ps1
-.\service.ps1
+.\build.ps1 encrypt
+.\build.ps1 draft encrypt
 ```
 
-- `build.ps1` 脚本会读取 `deploy.env`，生成 `_config.encrypt.yml`，然后执行 clean + generate
-- `service.ps1` 会启动一个本地服务器，访问 http://localhost:4000/blog/ 来预览，包含加密效果，不包含草稿
+Linux：
+
+```bash
+./build.sh
+./build.sh encrypt
+./build.sh draft encrypt
+```
+
+- `build.ps1` 在传 `encrypt` 时会读取 `deploy.env` 并生成 `_config.encrypt.yml`，然后 `clean` + `generate`
+
 
 
 

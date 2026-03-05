@@ -52,7 +52,7 @@ hexo new draft "这里是文章标题（可中文）" --slug "english-slug"
 .\service.ps1 encrypt
 
 # 发布草稿到 post
-hexo publish "english-slug"
+.\publish.ps1
 
 # 发布前完整本地检查（clean + generate）
 .\build.ps1 encrypt
@@ -95,7 +95,18 @@ Linux：
 ### 发布草稿到 post
 
 ```powershell
-hexo publish "english-slug"
+# 发布草稿（直接移动，保留front-matter顺序）
+.\publish.ps1
+
+# 可选：用官方hexo publish
+.\publish.ps1 hexo
+```
+
+Linux：
+
+```bash
+./publish.sh
+./publish.sh hexo
 ```
 
 - 会把文章从 `source/_drafts/` 移动到 `source/_posts/`

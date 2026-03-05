@@ -1,17 +1,36 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Hexo publish: choose one draft and move to _posts
+# Publish draft: default raw move, optional hexo mode
+
+mode="raw"
+for raw in "$@"; do
+  flag="${raw#--}"
+  flag="${flag#-}"
+  flag="${flag,,}"
+  case "$flag" in
+    hexo) mode="hexo" ;;
+    raw) mode="raw" ;;
+    "") ;;
+    *) echo "[WARN] Unknown arg: $raw (ignored)" ;;
+  esac
+done
 
 draft_dir="source/_drafts"
+post_dir="source/_posts"
 if [[ ! -d "$draft_dir" ]]; then
   echo "[INFO] No drafts directory: $draft_dir"
   exit 0
 fi
 
-shopt -s nullglob
-draft_files=("$draft_dir"/*.md)
-shopt -u nullglob
+shopt -s globstar nullglob
+draft_files=("$draft_dir"/**/*.md)
+shopt -u globstar nullglob
+
+if [[ ${#draft_files[@]} -gt 1 ]]; then
+  IFS=$'\n' draft_files=($(printf '%s\n' "${draft_files[@]}" | sort))
+  unset IFS
+fi
 
 if [[ ${#draft_files[@]} -eq 0 ]]; then
   echo "[INFO] No draft files found in $draft_dir"
@@ -37,10 +56,18 @@ get_draft_title() {
   printf '%s' "$title"
 }
 
-echo "[INFO] Draft list:"
+ask_overwrite() {
+  local target="$1"
+  local ans
+  read -r -p "[WARN] Target exists: $target . overwrite? (y/N): " ans
+  ans="${ans,,}"
+  [[ "$ans" == "y" ]]
+}
+
+echo "[INFO] Draft list (mode: $mode):"
 for i in "${!draft_files[@]}"; do
   file="${draft_files[$i]}"
-  name="$(basename "$file")"
+  name="${file#"$draft_dir"/}"
   title="$(get_draft_title "$file")"
   printf '%d) %s | %s\n' "$((i + 1))" "$name" "$title"
 done
@@ -66,8 +93,56 @@ fi
 
 selected="${draft_files[$index]}"
 slug="$(basename "$selected" .md)"
+relative="${selected#"$draft_dir"/}"
 
-echo "[REPRO] npx --yes hexo publish \"$slug\""
-npx --yes hexo publish "$slug"
+if [[ "$mode" == "hexo" ]]; then
+  if [[ "$relative" == */* ]]; then
+    echo "[WARN] Hexo mode may not reliably target nested draft path: $relative"
+  fi
+  echo "[REPRO] npx --yes hexo publish \"$slug\""
+  npx --yes hexo publish "$slug"
+  echo "[DONE] published (hexo): $relative"
+  exit 0
+fi
 
-echo "[DONE] published: $slug"
+target="$post_dir/$relative"
+target_dir="$(dirname "$target")"
+mkdir -p "$target_dir"
+
+overwrite=false
+if [[ -e "$target" ]]; then
+  if ask_overwrite "$target"; then
+    overwrite=true
+    rm -f "$target"
+  else
+    echo "[INFO] Skip publish (target exists)"
+    exit 0
+  fi
+fi
+
+source_asset="${selected%.md}"
+target_asset="${target%.md}"
+if [[ -d "$source_asset" ]]; then
+  asset_overwrite="$overwrite"
+  if [[ -d "$target_asset" && "$asset_overwrite" != true ]]; then
+    if ask_overwrite "$target_asset"; then
+      asset_overwrite=true
+    else
+      echo "[INFO] Skip publish (asset target exists)"
+      exit 0
+    fi
+  fi
+  if [[ -d "$target_asset" && "$asset_overwrite" == true ]]; then
+    rm -rf "$target_asset"
+  fi
+fi
+
+echo "[REPRO] move \"$relative\" from _drafts to _posts"
+mv "$selected" "$target"
+
+if [[ -d "$source_asset" ]]; then
+  mkdir -p "$(dirname "$target_asset")"
+  mv "$source_asset" "$target_asset"
+fi
+
+echo "[DONE] published (raw): $relative"

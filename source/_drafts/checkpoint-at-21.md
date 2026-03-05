@@ -9,12 +9,10 @@ tags:
 - AI
 - ML
 categories:
-- Journal
 - Narrative
-description:
-photo:
+description: あの鳥はまだうまく飛べないけど，いつかは風を切って知る。尽管那只鸟还不能够展翅翱翔，但是总有一天它会迎风高飞。就把这篇充满纠结、抗拒和不甘的文字，当作是我21岁的一个checkpoint吧。
+photo: https://vanilla-picture-with-picgo.oss-cn-shenzhen.aliyuncs.com/img-from-OSS-uploader/20260306-062929-10001.png
 ---
-
 
 <!--more-->
 

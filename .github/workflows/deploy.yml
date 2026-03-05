@@ -40,7 +40,7 @@ jobs:
       - name: Build with build.sh
         run: |
           chmod +x build.sh
-          ./build.sh
+          ./build.sh encrypt
 
       - name: Setup SSH
         run: |

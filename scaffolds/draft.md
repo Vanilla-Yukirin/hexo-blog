@@ -1,6 +1,11 @@
 ---
 title: {{ title }}
+date: {{ date }}
+updated:
+permalink:
 tags:
-mathjax: true
-# <!--more-->
+mathjax: false
+categories:
+description:
+photo:
 ---

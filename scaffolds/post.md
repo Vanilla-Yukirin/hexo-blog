@@ -1,12 +1,13 @@
 ---
 title: {{ title }}
 date: {{ date }}
+updated:
+permalink:
 tags:
-- 2025ACM
 mathjax: false
-categories: 
-description: 
-photo: 
+categories:
+description:
+photo:
 ---
 
 

@@ -3,6 +3,18 @@ name: Deploy Hexo to Nginx
 on:
   push:
     branches: ["main"]
+    paths:
+    - "source/**"              # 文章、页面、_data注入
+    - "themes/**"              # 主题改动
+    - "_config*.yml"           # 主配置/主题配置/runtime相关
+    - "scaffolds/**"           # 模板
+    - "_scripts/**"            # 自定义脚本
+    - "build.sh"
+    - "service.sh"
+    - "package.json"
+    - "package-lock.json"
+    - ".github/workflows/deploy.yml"
+  workflow_dispatch:
 
 concurrency:
   group: hexo-deploy

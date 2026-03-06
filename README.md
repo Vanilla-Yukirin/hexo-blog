@@ -98,7 +98,7 @@ Linux：
 # 发布草稿（直接移动，保留front-matter顺序）
 .\publish.ps1
 
-# 可选：用官方hexo publish
+# 可选：用 hexo 的官方 publish 命令，但会重新生成 front-matter 导致顺序打乱，不建议。
 .\publish.ps1 hexo
 ```
 

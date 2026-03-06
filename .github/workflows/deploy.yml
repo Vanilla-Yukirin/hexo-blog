@@ -58,3 +58,10 @@ jobs:
             -e "ssh -p 22" \
             public/ \
             "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/blog/"
+      
+      - name: Trigger Profile README Update
+        run: |
+          curl -X POST https://api.github.com/repos/Vanilla-Yukirin/Vanilla-Yukirin/dispatches \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: Bearer ${{ secrets.UPDATE_PROFILE_README_TOKEN }}" \
+          -d '{"event_type": "update-blog-posts"}'

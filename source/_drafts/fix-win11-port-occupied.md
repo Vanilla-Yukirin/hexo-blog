@@ -5,6 +5,9 @@ date: 2026-02-13 18:49:01
 updated: 2026-03-06 17:14:08
 permalink:
 tags:
+- Windows
+- Port
+- WSL
 categories:
 description:
 photo:

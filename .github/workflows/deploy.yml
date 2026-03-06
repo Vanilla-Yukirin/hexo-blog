@@ -5,6 +5,7 @@ on:
     branches: ["main"]
     paths:
     - "source/**"              # 文章、页面、_data注入
+    - "!source/_drafts/**"     # 草稿不触发部署
     - "themes/**"              # 主题改动
     - "_config*.yml"           # 主配置/主题配置/runtime相关
     - "scaffolds/**"           # 模板

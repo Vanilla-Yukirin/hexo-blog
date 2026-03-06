@@ -1,5 +1,5 @@
 ---
-title: 解决win11端口被随机占用的问题
+title: 解决Windows11端口被随机占用的问题
 mathjax: false
 date: 2026-02-13 18:49:01
 updated: 2026-03-06 17:14:08
@@ -18,7 +18,7 @@ photo:
 
 <!--more-->
 
-## Problem
+## 问题复现
 
 查看目前动态范围
 
@@ -55,7 +55,7 @@ Start Port    End Port
 
 其中，这次我正好想要使用的8675端口正好在里面。有时候还会随机到3000、8000这种更重要的端口。
 
-## Solution
+## 解决步骤
 
 ### 修改端口区间
 
@@ -66,9 +66,9 @@ netsh int ipv4 set dynamic tcp start=49152 num=16384
 netsh int ipv6 set dynamic tcp start=49152 num=16384
 ```
 
-指定这些端口走`49152~65535(49152+16384-1)`
+将系统动态端口范围设置为`49152~65535(49152+16384-1)`
 
-### 重启
+### 重启WinNAT服务
 
 **需要管理员**
 
@@ -113,7 +113,7 @@ Start Port    End Port
 * - Administered port exclusions.
 ```
 
-没有那么多占用了，正常了。
+此时端口占用显著收敛，目标端口不再被系统预留，问题解除。
 
 ## Reference
 

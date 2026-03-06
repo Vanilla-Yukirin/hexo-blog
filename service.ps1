@@ -26,7 +26,29 @@ foreach ($raw in $Flags) {
 
 Write-Host "[INFO] Start Hexo local server" -ForegroundColor Cyan
 
-$ConfigArg = "_config.main.yml"
+$BuildTime = $null
+try {
+  $tz = [System.TimeZoneInfo]::FindSystemTimeZoneById("China Standard Time")
+  $BuildTime = [System.TimeZoneInfo]::ConvertTimeFromUtc([DateTime]::UtcNow, $tz)
+} catch {
+  $BuildTime = Get-Date
+}
+
+$BuildCompact = $BuildTime.ToString("yyyyMMddHHmmss")
+$BuildPretty = $BuildTime.ToString("yyyy.MM.dd HH:mm:ss")
+
+Write-Host "[INFO] Generating _config.runtime.yml"
+$RuntimeConfig = @"
+build_info:
+  ts_compact: "$BuildCompact"
+  ts_pretty: "$BuildPretty"
+  tz_label: "UTC+8"
+"@
+
+$utf8bom = New-Object System.Text.UTF8Encoding($true)
+[System.IO.File]::WriteAllText("_config.runtime.yml", $RuntimeConfig, $utf8bom)
+
+$ConfigArg = "_config.main.yml,_config.runtime.yml"
 if ($UseEncrypt) {
   $EnvFile = "deploy.env"
   if (!(Test-Path $EnvFile)) {
@@ -71,9 +93,8 @@ encrypt:
   wrong_hash_message: "抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容."
 "@
 
-  $utf8bom = New-Object System.Text.UTF8Encoding($true)
   [System.IO.File]::WriteAllText("_config.encrypt.yml", $EncryptConfig, $utf8bom)
-  $ConfigArg = "_config.main.yml,_config.encrypt.yml"
+  $ConfigArg = "_config.main.yml,_config.runtime.yml,_config.encrypt.yml"
 }
 
 $DraftSuffix = ""

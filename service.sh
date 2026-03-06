@@ -20,7 +20,18 @@ done
 
 echo "[INFO] Start Hexo local server"
 
-CONFIG_ARG="_config.main.yml"
+BUILD_COMPACT="$(TZ=Asia/Shanghai date '+%Y%m%d%H%M%S')"
+BUILD_PRETTY="$(TZ=Asia/Shanghai date '+%Y.%m.%d %H:%M:%S')"
+
+echo "[INFO] Generating _config.runtime.yml"
+cat > _config.runtime.yml <<EOF
+build_info:
+  ts_compact: "$BUILD_COMPACT"
+  ts_pretty: "$BUILD_PRETTY"
+  tz_label: "UTC+8"
+EOF
+
+CONFIG_ARG="_config.main.yml,_config.runtime.yml"
 if [[ "$USE_ENCRYPT" == true ]]; then
   ENV_FILE="deploy.env"
   if [[ ! -f "$ENV_FILE" ]]; then
@@ -70,7 +81,7 @@ encrypt:
   wrong_pass_message: "诶，密码不对！是输错了嘛？"
   wrong_hash_message: "抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容."
 EOF
-  CONFIG_ARG="_config.main.yml,_config.encrypt.yml"
+  CONFIG_ARG="_config.main.yml,_config.runtime.yml,_config.encrypt.yml"
 fi
 
 DRAFT_SUFFIX=""

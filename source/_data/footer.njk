@@ -1,0 +1,6 @@
+{%- if config.build_info and config.build_info.ts_pretty -%}
+  <div class="powered-by build-stamp-footer" title="{{ config.build_info.ts_compact }}">
+    <i class="fa fa-hammer" aria-hidden="true"></i>
+    <span>构建于 {{ config.build_info.tz_label }} {{ config.build_info.ts_pretty }}</span>
+  </div>
+{%- endif -%}

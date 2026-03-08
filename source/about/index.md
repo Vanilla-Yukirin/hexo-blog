@@ -28,10 +28,13 @@ type: "about"
 - 做自己想做的事情
 - 学算法
 
-![Vanilla-chan-nya](https://count.getloli.com/@Vanilla-chan-nya?name=Vanilla_chan&theme=moebooru&padding=7&offset=0&align=top&scale=1&pixelated=1)
-
-
+<!-- # 最近活跃图 粉色
 <img src="https://github-readme-activity-graph.vercel.app/graph?username=Vanilla-Yukirin&theme=cotton-candy&area=true" alt="Vanilla Yukirin's github activity graph"/>
+-->
+
+<img src="https://raw.githubusercontent.com/Vanilla-Yukirin/Vanilla-Yukirin/refs/heads/main/profile-3d-contrib/profile-green-animate.svg" alt="3D Contributions"/>
+
+![Vanilla-chan-nya](https://count.getloli.com/@Vanilla-chan-nya?name=Vanilla_chan&theme=moebooru&padding=7&offset=0&align=top&scale=1&pixelated=1)
 
 <details>
   <summary>访客地图</summary>
@@ -39,6 +42,6 @@ type: "about"
 </details>
 
 
-<!--
+<!--另一个访客ip地图
 <a href="https://clustrmaps.com/site/1c6ac"  title="ClustrMaps"><img src="//www.clustrmaps.com/map_v2.png?d=7vxIHLrNTmkM-W-CnzOWsqkfucqZmwAeqNmCdKg-W5s&cl=ffffff" /></a>
 -->

@@ -34,11 +34,17 @@ type: "about"
 
 <img src="https://raw.githubusercontent.com/Vanilla-Yukirin/Vanilla-Yukirin/refs/heads/main/profile-3d-contrib/profile-green-animate.svg" alt="3D Contributions"/>
 
-![Vanilla-chan-nya](https://count.getloli.com/@Vanilla-chan-nya?name=Vanilla_chan&theme=moebooru&padding=7&offset=0&align=top&scale=1&pixelated=1)
-
-<!-- 访客ip地图 大款 无法折叠所以放弃
-<script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=7vxIHLrNTmkM-W-CnzOWsqkfucqZmwAeqNmCdKg-W5s&cl=ffffff&w=a" data-pjax></script>
--->
-
-<!--另一个访客ip地图 -->
-<a href="https://clustrmaps.com/site/1c6ac"  title="ClustrMaps"><img src="//www.clustrmaps.com/map_v2.png?d=7vxIHLrNTmkM-W-CnzOWsqkfucqZmwAeqNmCdKg-W5s&cl=ffffff" /></a>
+<div class="about-metrics">
+  <img
+    src="https://count.getloli.com/@Vanilla-chan-nya?name=Vanilla_chan&theme=moebooru&padding=7&offset=0&align=top&scale=1&pixelated=1"
+    alt="Vanilla counter"
+    class="about-metric-item"
+  />
+  <a href="https://clustrmaps.com/site/1c6ac" title="ClustrMaps" target="_blank" rel="noopener">
+    <img
+      src="//www.clustrmaps.com/map_v2.png?d=7vxIHLrNTmkM-W-CnzOWsqkfucqZmwAeqNmCdKg-W5s&cl=ffffff"
+      alt="访客地图"
+      class="about-metric-item"
+    />
+  </a>
+</div>

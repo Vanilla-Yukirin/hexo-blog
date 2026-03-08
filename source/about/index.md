@@ -36,12 +36,9 @@ type: "about"
 
 ![Vanilla-chan-nya](https://count.getloli.com/@Vanilla-chan-nya?name=Vanilla_chan&theme=moebooru&padding=7&offset=0&align=top&scale=1&pixelated=1)
 
-<details>
-  <summary>访客地图</summary>
-  <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=7vxIHLrNTmkM-W-CnzOWsqkfucqZmwAeqNmCdKg-W5s&cl=ffffff&w=a" data-pjax></script>
-</details>
-
-
-<!--另一个访客ip地图
-<a href="https://clustrmaps.com/site/1c6ac"  title="ClustrMaps"><img src="//www.clustrmaps.com/map_v2.png?d=7vxIHLrNTmkM-W-CnzOWsqkfucqZmwAeqNmCdKg-W5s&cl=ffffff" /></a>
+<!-- 访客ip地图 大款 无法折叠所以放弃
+<script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=7vxIHLrNTmkM-W-CnzOWsqkfucqZmwAeqNmCdKg-W5s&cl=ffffff&w=a" data-pjax></script>
 -->
+
+<!--另一个访客ip地图 -->
+<a href="https://clustrmaps.com/site/1c6ac"  title="ClustrMaps"><img src="//www.clustrmaps.com/map_v2.png?d=7vxIHLrNTmkM-W-CnzOWsqkfucqZmwAeqNmCdKg-W5s&cl=ffffff" /></a>

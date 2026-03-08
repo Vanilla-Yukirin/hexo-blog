@@ -34,17 +34,4 @@ type: "about"
 
 <img src="https://raw.githubusercontent.com/Vanilla-Yukirin/Vanilla-Yukirin/refs/heads/main/profile-3d-contrib/profile-green-animate.svg" alt="3D Contributions"/>
 
-<div class="about-metrics">
-  <img
-    src="https://count.getloli.com/@Vanilla-chan-nya?name=Vanilla_chan&theme=moebooru&padding=7&offset=0&align=top&scale=1&pixelated=1"
-    alt="Vanilla counter"
-    class="about-metric-item"
-  />
-  <a href="https://clustrmaps.com/site/1c6ac" title="ClustrMaps" target="_blank" rel="noopener">
-    <img
-      src="//www.clustrmaps.com/map_v2.png?d=7vxIHLrNTmkM-W-CnzOWsqkfucqZmwAeqNmCdKg-W5s&cl=ffffff"
-      alt="访客地图"
-      class="about-metric-item"
-    />
-  </a>
-</div>
+<div class="about-metrics"><div class="about-metric-cell"><img src="https://count.getloli.com/@Vanilla-chan-nya?name=Vanilla_chan&theme=moebooru&padding=7&offset=0&align=top&scale=1&pixelated=1" alt="Vanilla counter" class="about-metric-item about-counter" /></div><div class="about-metric-cell"><a href="https://clustrmaps.com/site/1c6ac" title="ClustrMaps" target="_blank" rel="noopener"><img src="//www.clustrmaps.com/map_v2.png?d=7vxIHLrNTmkM-W-CnzOWsqkfucqZmwAeqNmCdKg-W5s&cl=ffffff" alt="访客地图" class="about-metric-item about-map" /></a></div></div>

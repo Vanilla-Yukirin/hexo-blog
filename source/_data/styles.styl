@@ -14,26 +14,35 @@
 
 .about-metrics
   display: flex
-  gap: 12px
-  align-items: flex-start
-  justify-content: center
   flex-wrap: wrap
+  align-items: center
+  justify-content: center
+  gap: 12px
+  width: 100%
   margin: 8px 0 16px
+  text-align: center
+  clear: both
 
-.about-metrics > p
+.about-metric-cell
+  width: 320px
+  max-width: 100%
   display: flex
-  gap: 12px
-  align-items: flex-start
   justify-content: center
-  flex-wrap: wrap
-  margin: 0
+  align-items: center
 
 .about-metrics a
   display: block
+  border-bottom: none !important
+  box-shadow: none !important
+
+.about-metrics a:hover
+  border-bottom: none !important
+  box-shadow: none !important
 
 .about-metric-item
-  width: 320px
-  max-width: 100%
+  width: 100%
+  max-width: 320px
   height: auto
   display: block
+  margin: 0 auto
   border-radius: 6px

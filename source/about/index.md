@@ -8,7 +8,11 @@ type: "about"
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="80%" height="140" src="//music.163.com/outchain/player?type=2&id=1365428127&auto=0&height=80"></iframe>
 
 	
-我是 Vanilla（Vanilla_chan）。喜欢折腾，喜欢记录，靠着兴趣一路走到现在，希望继续努力，变得更厉害！
+我是 `Vanilla_chan`，喜欢折腾，喜欢记录。
+
+靠着兴趣一路走到现在！
+
+希望我可以继续努力，变得更厉害！
 
 另外，希望再可爱一点awa
 
